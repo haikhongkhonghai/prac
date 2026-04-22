@@ -602,3 +602,242 @@ footer hr {
 .submit-btn:hover {
     background-color: #250f41;
 }
+
+/* ===== View List Button ===== */
+.view-list-btn {
+    background-color: #28a745;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.15s;
+}
+.view-list-btn:hover {
+    background-color: #1e7e34;
+    transform: translateY(-1px);
+}
+
+/* ===== Draggable Window ===== */
+.drag-handle {
+    cursor: grab;
+    user-select: none;
+}
+.drag-handle:active {
+    cursor: grabbing;
+}
+.drag-icon {
+    font-size: 14px;
+    color: #aaa;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+.draggable-window.is-dragging,
+.floating-window.is-dragging {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    opacity: 0.95;
+}
+
+/* ===== Floating Window (List) ===== */
+.floating-window {
+    position: fixed;
+    z-index: 10000;
+    width: 650px;
+    max-width: 80%;
+    max-height: 90vh;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: windowFadeIn 0.25s ease-out;
+    font-family: 'Inter', sans-serif;
+}
+@keyframes windowFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+.floating-window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 1px solid #eaeaea;
+    border-radius: 8px 8px 0 0;
+    user-select: none;
+}
+.floating-window-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+.floating-window-header .drag-icon {
+    color: #aaa;
+}
+.floating-window-actions {
+    display: flex;
+    gap: 8px;
+}
+.floating-window-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    transition: color 0.3s;
+    padding: 2px;
+}
+.floating-window-btn.minimize-btn:hover,
+.floating-window-btn.close-btn:hover {
+    color: #000;
+}
+.floating-window-body {
+    padding: 20px 50px 40px 50px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* ===== Empty List Message ===== */
+.empty-list-msg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #aaa;
+    gap: 12px;
+}
+.empty-list-msg i {
+    font-size: 48px;
+    color: #ddd;
+}
+.empty-list-msg p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* ===== List Counter ===== */
+.list-counter {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #f0f7ff;
+    border-radius: 8px;
+    border-left: 4px solid #1A7AE9;
+}
+.list-counter i {
+    color: #1A7AE9;
+    font-size: 16px;
+}
+
+/* ===== Registration Table ===== */
+.list-table-wrap {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+}
+.reg-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.reg-table thead {
+    background: #f8f9fa;
+}
+.reg-table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #555;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e8e8e8;
+    white-space: nowrap;
+}
+.reg-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    vertical-align: middle;
+}
+.reg-table tbody tr:hover {
+    background: #f8fbff;
+}
+.reg-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.delete-reg-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+}
+.delete-reg-btn:hover {
+    color: #e74c3c;
+    background-color: #fdecea;
+}
+
+/* ===== Toast Notification ===== */
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    z-index: 99999;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    font-family: 'Inter', sans-serif;
+}
+.toast-show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+.toast-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+.toast-error {
+    background: linear-gradient(135deg, #e74c3c, #fd7e14);
+}
+
+/* ===== Modal draggable enhancements ===== */
+.modal-content.draggable-window {
+    transition: box-shadow 0.2s;
+}
+.modal-header.drag-handle {
+    cursor: grab;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 8px 8px 0 0;
+}
+.modal-header.drag-handle:active {
+    cursor: grabbing;
+}
