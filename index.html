@@ -421,16 +421,10 @@
         }
 
         // Khởi tạo drag cho modal đăng ký
-        makeDraggable(
-            document.getElementById('registerDragHandle'),
-            document.getElementById('registerWindow')
-        );
+        makeDraggable(document.getElementById('registerDragHandle'),document.getElementById('registerWindow'));
 
         // Khởi tạo drag cho cửa sổ danh sách
-        makeDraggable(
-            document.getElementById('listDragHandle'),
-            document.getElementById('listWindow')
-        );
+        makeDraggable(document.getElementById('listDragHandle'),document.getElementById('listWindow'));
 
         // ===== Lưu dữ liệu vào localStorage =====
         function handleRegisterSubmit(e) {
@@ -514,20 +508,6 @@
             document.getElementById('listWindow').style.display = 'none';
         }
 
-        var isMinimized = false;
-        function toggleMinimizeList() {
-            var body = document.getElementById('listWindowBody');
-            var btn = document.querySelector('.minimize-btn i');
-            isMinimized = !isMinimized;
-            if (isMinimized) {
-                body.style.display = 'none';
-                btn.className = 'fa-solid fa-expand';
-            } else {
-                body.style.display = 'block';
-                btn.className = 'fa-solid fa-minus';
-            }
-        }
-
         function renderRegisteredList() {
             var registrations = JSON.parse(localStorage.getItem('registrations') || '[]');
             var listContainer = document.getElementById('registeredList');
@@ -550,11 +530,11 @@
                 var r = registrations[i];
                 html += '<tr>';
                 html += '<td>' + (i + 1) + '</td>';
-                html += '<td><strong>' + escapeHtml(r.hoTen) + '</strong></td>';
-                html += '<td>' + escapeHtml(r.donVi || '—') + '</td>';
-                html += '<td>' + escapeHtml(r.chucVu || '—') + '</td>';
-                html += '<td>' + escapeHtml(r.soDienThoai) + '</td>';
-                html += '<td>' + escapeHtml(r.ngayDangKy || '—') + '</td>';
+                html += '<td><strong>' + r.hoTen + '</strong></td>';
+                html += '<td>' + (r.donVi || '—') + '</td>';
+                html += '<td>' + (r.chucVu || '—') + '</td>';
+                html += '<td>' + r.soDienThoai + '</td>';
+                html += '<td>' + (r.ngayDangKy || '—') + '</td>';
                 html += '<td><button class="delete-reg-btn" onclick="deleteRegistration(' + i + ')" title="Xoá"><i class="fa-solid fa-trash-can"></i></button></td>';
                 html += '</tr>';
             }
@@ -568,12 +548,6 @@
             localStorage.setItem('registrations', JSON.stringify(registrations));
             renderRegisteredList();
             showToast('Đã xoá đăng ký!', 'success');
-        }
-
-        function escapeHtml(str) {
-            var div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
         }
     </script>
 </body>
