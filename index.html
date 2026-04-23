@@ -262,7 +262,7 @@
                     <div class="form-group">
                         <label>Số lượng người</label>
                         <input type="text" id="soLuong" class="form-control" placeholder="Nhập số lượng người tham gia"/>
-
+                        <span id="soLuong-error" class="field-error">Số lượng phải là số hợp lệ lớn hơn 0!</span>
                     </div>
                     <div class="form-group">
                         <label>Địa điểm</label>
@@ -271,6 +271,7 @@
                     <div class="form-group">
                         <label>Họ và tên</label>
                         <input type="text" id="hoTen" class="form-control" placeholder="Nhập họ và tên"/>
+                        <span id="hoTen-error" class="field-error">Vui lòng nhập họ và tên!</span>
                     </div>
                     <div class="form-group">
                         <label>Đơn vị công tác</label>
@@ -283,6 +284,7 @@
                     <div class="form-group">
                         <label>Số điện thoại</label>
                         <input type="text" id="soDienThoai" class="form-control" placeholder="Nhập số điện thoại"/>
+                        <span id="soDienThoai-error" class="field-error">Số điện thoại không hợp lệ (vui lòng nhập 9-11 chữ số)!</span>
                     </div>
                     <button type="submit" class="submit-btn"><i class="fa-regular fa-paper-plane"></i> Gửi đăng ký</button>
                 </form>
@@ -430,6 +432,12 @@
         // ===== Lưu dữ liệu vào localStorage =====
         function handleRegisterSubmit(e) {
             e.preventDefault();
+            
+            // Xóa thông báo lỗi trước đó nếu có
+            document.getElementById('soLuong-error').style.display = 'none';
+            document.getElementById('hoTen-error').style.display = 'none';
+            document.getElementById('soDienThoai-error').style.display = 'none';
+
             var soLuong = document.getElementById('soLuong').value.trim();
             var diaDiem = document.getElementById('diaDiem').value.trim();
             var hoTen = document.getElementById('hoTen').value.trim();
@@ -437,21 +445,33 @@
             var chucVu = document.getElementById('chucVu').value.trim();
             var soDienThoai = document.getElementById('soDienThoai').value.trim();
 
-            if (!hoTen || !soDienThoai) {
-                showToast('Vui lòng nhập ít nhất Họ tên và Số điện thoại!', 'error');
-                return;
-            }
+            var hasError = false;
 
+            // Validate số lượng (nếu có nhập thì phải là số > 0)
             if (soLuong && (isNaN(soLuong) || parseInt(soLuong) <= 0)) {
-                showToast('Số lượng phải là số hợp lệ lớn hơn 0!', 'error');
-                return;
+                document.getElementById('soLuong-error').style.display = 'block';
+                hasError = true;
             }
 
-            var phonePattern = /^[0-9]{9,11}$/;
-            if (!phonePattern.test(soDienThoai)) {
-                showToast('Số điện thoại không hợp lệ (vui lòng nhập 9-11 chữ số)!', 'error');
-                return;
+            // Validate họ tên (bắt buộc)
+            if (!hoTen) {
+                document.getElementById('hoTen-error').style.display = 'block';
+                hasError = true;
             }
+
+            // Validate số điện thoại (bắt buộc + định dạng)
+            var phonePattern = /^[0-9]{9,11}$/;
+            if (!soDienThoai) {
+                document.getElementById('soDienThoai-error').textContent = 'Vui lòng nhập số điện thoại!';
+                document.getElementById('soDienThoai-error').style.display = 'block';
+                hasError = true;
+            } else if (!phonePattern.test(soDienThoai)) {
+                document.getElementById('soDienThoai-error').textContent = 'Số điện thoại không hợp lệ (vui lòng nhập 9-11 chữ số)!';
+                document.getElementById('soDienThoai-error').style.display = 'block';
+                hasError = true;
+            }
+
+            if (hasError) return;
 
             var data = {
                 soLuong: soLuong,

@@ -594,6 +594,13 @@ footer hr {
     margin-bottom: 12px;
 }
 
+.field-error {
+    display: none;
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 .form-group label {
     display: block;
     margin-bottom: 8px;
