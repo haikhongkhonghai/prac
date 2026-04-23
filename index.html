@@ -262,6 +262,7 @@
                     <div class="form-group">
                         <label>Số lượng người</label>
                         <input type="text" id="soLuong" class="form-control" placeholder="Nhập số lượng người tham gia"/>
+
                     </div>
                     <div class="form-group">
                         <label>Địa điểm</label>
@@ -438,6 +439,17 @@
 
             if (!hoTen || !soDienThoai) {
                 showToast('Vui lòng nhập ít nhất Họ tên và Số điện thoại!', 'error');
+                return;
+            }
+
+            if (soLuong && (isNaN(soLuong) || parseInt(soLuong) <= 0)) {
+                showToast('Số lượng phải là số hợp lệ lớn hơn 0!', 'error');
+                return;
+            }
+
+            var phonePattern = /^[0-9]{9,11}$/;
+            if (!phonePattern.test(soDienThoai)) {
+                showToast('Số điện thoại không hợp lệ (vui lòng nhập 9-11 chữ số)!', 'error');
                 return;
             }
 
